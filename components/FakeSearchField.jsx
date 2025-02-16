@@ -7,7 +7,7 @@ const FakeSearchField = () => {
   return (
     <View style={styles.container}>
         <FontAwesome name="search" size={22} color={cores.searchIconColor} />
-      <Text style={{fontSize: 14, color: cores.inputPlaceholderColor}}>Pesquisar</Text>
+      <Text style={{fontSize: 14, color: cores.inputPlaceholderColor}}>Search</Text>
     </View>
   )
 }

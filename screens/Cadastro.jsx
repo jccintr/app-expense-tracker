@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import AssetImage from '../components/reusable/AssetImage'
 import HeightSpacer from '../components/reusable/HeightSpacer'
 import { cores } from '../styles/core'
-import logo from '../assets/logo320.png';
+import logo from '../assets/logo-350x200.png';
 import InputField from '../components/InputField'
 import Botao from '../components/reusable/Botao'
 import api from '../api/api'
@@ -69,10 +69,11 @@ const Cadastro = ({navigation}) => {
          
     <StatusBar animated={true} backgroundColor={cores.background} barStyle="dark-content"/>
     <AssetImage radius={0} height={150} width={150} source={logo} mode={'contain'}/>
+    <Text style={styles.title}>EXPENSE TRACKER REGISTER</Text>
     <HeightSpacer h={40}/>
     <InputField 
-        label={'Nome:'} 
-        placeholder={'Informe o seu Nome'} 
+        label={'Name:'} 
+        placeholder={'Enter your name'} 
         valule={name} 
         onChangeText={t=>setName(t)} 
         password={false} 
@@ -80,23 +81,23 @@ const Cadastro = ({navigation}) => {
     />
     <InputField 
         label={'Email:'} 
-        placeholder={'Informe o seu Email'} 
+        placeholder={'Enter your email'} 
         valule={email} 
         onChangeText={t=>setEmail(t)}
         password={false} 
         keyboard={'email-address'}
     />
     <InputField 
-        label={'Senha:'} 
-        placeholder={'Informe a sua Senha'} 
+        label={'Password:'} 
+        placeholder={'Enter your password'} 
         valule={password} 
         onChangeText={t=>setPassword(t)}
         password={true} 
         keyboard={'default'}
     />
     <InputField 
-        label={'Confirme a Senha:'} 
-        placeholder={'Confirme a sua Senha'} 
+        label={'Confirm Password:'} 
+        placeholder={'Confirm your password'} 
         valule={password2} 
         onChangeText={t=>setPassword2(t)}
         password={true} 
@@ -104,7 +105,7 @@ const Cadastro = ({navigation}) => {
     />
     <Botao 
         onPress={()=>cadastrar()} 
-        text={'CADASTRAR'} 
+        text={'REGISTER'} 
         textSize={16} 
         textColor={cores.white} 
         width={'100%'} 
@@ -116,7 +117,7 @@ const Cadastro = ({navigation}) => {
     <HeightSpacer h={10}/>
    
     <TouchableOpacity onPress={()=>navigation.navigate('login')} >
-    <Text>Já tem uma conta ? <Text style={{color:cores.primary,fontWeight:'bold'}}>Entre !</Text></Text>
+    <Text>Already have an account ? <Text style={{color:cores.primary,fontWeight:'bold'}}>Login !</Text></Text>
     </TouchableOpacity>
  
 </SafeAreaView>
@@ -133,6 +134,11 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     backgroundColor: cores.background
   },
+  title:{
+    fontSize: 18,
+    fontWeight:'bold',
+    color:cores.primary
+  }
 
   
 })

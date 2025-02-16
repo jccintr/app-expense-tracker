@@ -15,7 +15,7 @@ const TransactionsList = ({transactions}) => {
         keyExtractor={(item)=> item.id.toString()}
         renderItem={({item})=><TransactionCard transaction={item} />}
         ItemSeparatorComponent={Separator}
-        ListEmptyComponent={<EmptyList title="Transações não encontradas" mensagem={'Escolha uma nova data ou insira uma nova transação'}/>}
+        ListEmptyComponent={<EmptyList title="No transactions found" mensagem={'Please, change the date or create a new transaction'}/>}
         contentContainerStyle={transactions.length===0?{flexGrow:1,alignItems:'center',justifyContent:'center'}:''}
     />
   )

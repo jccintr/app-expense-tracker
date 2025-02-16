@@ -3,7 +3,7 @@ import React, {useState,useContext} from 'react'
 import AssetImage from '../components/reusable/AssetImage'
 import HeightSpacer from '../components/reusable/HeightSpacer'
 import { cores } from '../styles/core'
-import logo from '../assets/logo320.png';
+import logo from '../assets/logo-350x200.png';
 import InputField from '../components/InputField'
 import Botao from '../components/reusable/Botao'
 import { AuthContext } from '../context/AuthContext'
@@ -77,18 +77,19 @@ const Login = ({navigation}) => {
          
     <StatusBar animated={true} backgroundColor={cores.background} barStyle="dark-content"/>
     <AssetImage radius={0} height={150} width={150} source={logo} mode={'contain'}/>
+    <Text style={styles.title}>EXPENSE TRACKER LOGIN</Text>
     <HeightSpacer h={40}/>
     <InputField 
         label={'Email:'} 
-        placeholder={'Informe o seu Email'} 
+        placeholder={'Enter your email'} 
         valule={email} 
         onChangeText={t=>setEmail(t)} 
         password={false} 
         keyboard={'email-address'}
     />
     <InputField 
-        label={'Senha:'} 
-        placeholder={'Informe a sua Senha'} 
+        label={'Password:'} 
+        placeholder={'Enter your password'} 
         valule={password} 
         onChangeText={t=>setPassword(t)} 
         password={true} 
@@ -96,7 +97,7 @@ const Login = ({navigation}) => {
     />
     <Botao 
         onPress={login} 
-        text={'ENTRAR'} 
+        text={'LOGIN'} 
         textSize={16} 
         textColor={cores.white} 
         width={'100%'} 
@@ -108,7 +109,7 @@ const Login = ({navigation}) => {
     <HeightSpacer h={10}/>
    
     <TouchableOpacity onPress={()=>navigation.navigate('cadastro')} >
-          <Text>Não tem uma conta ? <Text style={{color:cores.primary,fontWeight:'bold'}}>Cadastre-se !</Text></Text>
+          <Text>Don´t have an account ? <Text style={{color:cores.primary,fontWeight:'bold'}}>Register !</Text></Text>
     </TouchableOpacity>
  
 </SafeAreaView>
@@ -125,6 +126,11 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     backgroundColor: cores.background
   },
+  title:{
+    fontSize: 18,
+    fontWeight:'bold',
+    color:cores.primary
+  }
 
   
 })

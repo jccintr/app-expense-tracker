@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView,StatusBar,View,ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, SafeAreaView,StatusBar,View,ActivityIndicator,ToastAndroid } from 'react-native'
 import React, {useContext,useState,useEffect} from 'react'
 import Botao from '../components/reusable/Botao'
 import HeightSpacer from '../components/reusable/HeightSpacer'
@@ -19,6 +19,12 @@ const Home = ({navigation}) => {
     const [transactions,setTransactions] = useState([]);
     const [data,setData] = useState(null);
    
+
+    useEffect(()=>{
+      ToastAndroid.show(`Welcome ${loggedUser.name} !`, ToastAndroid.LONG);
+    },[]);
+
+
     useEffect(()=>{
       const hoje = new Date(Date.now());
       setData(hoje);
@@ -52,14 +58,14 @@ const Home = ({navigation}) => {
      <SafeAreaView style={styles.container}>
           <StatusBar animated={true} backgroundColor={cores.background} barStyle="dark-content"/>
           <View style={{width:'100%',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-             <Text style={styles.title}>Home</Text>
+             <Text style={styles.title}>Expense Tracker</Text>
              <Text style={styles.userName}>{loggedUser.name}</Text>
           </View>
           <HeightSpacer h={10}/>
           <FakeSearchField/>
           <HeightSpacer h={10}/>
           <View style={{width:'100%',flexDirection:'row',justifyContent:'space-between'}}>
-             <Text style={styles.subTitle}>Transações</Text>
+             <Text style={styles.subTitle}>Transactions</Text>
             
           </View>
           <HeightSpacer h={10}/>

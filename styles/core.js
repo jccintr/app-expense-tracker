@@ -1,5 +1,5 @@
 export const cores = {
-    primary: '#365F27',
+    primary: '#123d71',
     background: '#f4f4f4',
     inputBackground: '#e6e6e6',
     inputPlaceholderColor: '#a1a1a1',
