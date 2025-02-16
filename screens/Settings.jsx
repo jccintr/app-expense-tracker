@@ -25,7 +25,7 @@ const Settings = ({navigation}) => {
          
           <View style={styles.body}>
           <Botao 
-            onPress={()=>{}} 
+            onPress={()=>navigation.navigate('categories')} 
             text={'CATEGORIES'} 
             textSize={16} 
             textColor={cores.blueGray} 
@@ -38,7 +38,7 @@ const Settings = ({navigation}) => {
           />
           <HeightSpacer h={10}/>
           <Botao 
-            onPress={()=>{}} 
+            onPress={()=>navigation.navigate('accounts')} 
             text={'ACCOUNTS'} 
             textSize={16} 
             textColor={cores.blueGray} 

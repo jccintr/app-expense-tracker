@@ -57,7 +57,28 @@ export default {
         });
         return response;
     },
-  
+    getCategories: async (token) => {
+        const response = await fetch(`${BASE_API}/categories`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        });
+        return response;
+    },
+    getAccounts: async (token) => {
+        const response = await fetch(`${BASE_API}/accounts`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        });
+        return response;
+    },
   
   
    

@@ -3,7 +3,7 @@ import React, {useState,useEffect,useContext} from 'react'
 import AssetImage from '../components/reusable/AssetImage'
 import HeightSpacer from '../components/reusable/HeightSpacer'
 import { cores } from '../styles/core'
-import logo from '../assets/logo320.png';
+import logo from '../assets/logo-350x200.png';
 import { AuthContext } from '../context/AuthContext'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../api/api'
