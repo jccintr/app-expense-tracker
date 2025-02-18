@@ -16,8 +16,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 const Categories = ({navigation}) => {
   const {token} = useContext(AuthContext);
   const [isLoading,setIsLoading] = useState(false);
-  const [isLoadingCategory,setIsLoadingCategory] = useState(false);
   const [categories,setCategories] = useState([]);
+  const [isLoadingCategory,setIsLoadingCategory] = useState(false);
   const [name,setName] = useState('');
   const [selectedCategory,setSelectedCategory] = useState(null);
   const modalNewRef = createRef();
@@ -52,7 +52,7 @@ const Categories = ({navigation}) => {
             onPress: () => deleteCategory()
           }
         ]
-      );s
+      );
      }
 
      const deleteCategory = async () => {
@@ -70,6 +70,7 @@ const Categories = ({navigation}) => {
             Alert.alert('Error',error);
             return;
      }
+
     const update = async () => {
 
       if(name.trim().length===0){
@@ -84,6 +85,12 @@ const Categories = ({navigation}) => {
            setModalEditOpen(false);
         }
       }
+
+      const onAdd = () => {
+        setSelectedCategory(null);
+        setName('');
+        setModalNewOpen(true)
+     }
 
   
     const add = async () => {
@@ -125,7 +132,7 @@ const Categories = ({navigation}) => {
        </TouchableOpacity>
     </View>
     <HeightSpacer h={20} />
-    <TouchableOpacity onPress={() => setModalNewOpen(true)}>
+     <TouchableOpacity onPress={() => onAdd()}>
        <Text style={{color:cores.blueGray,fontSize:16}}>Add Category</Text>
     </TouchableOpacity>
     <HeightSpacer h={20} />
@@ -143,16 +150,16 @@ const Categories = ({navigation}) => {
             keyboard={'default'}
           />
           <Botao 
-        onPress={()=>add()} 
-        text={'ADD CATEGORY'} 
-        textSize={16} 
-        textColor={cores.white} 
-        width={'100%'} 
-        backgroundColor={cores.primary} 
-        borderWidth={0} 
-        borderRadius={10} 
-        isLoading={isLoadingCategory}
-    />
+              onPress={()=>add()} 
+              text={'ADD CATEGORY'} 
+              textSize={16} 
+              textColor={cores.white} 
+              width={'100%'} 
+              backgroundColor={cores.primary} 
+              borderWidth={0} 
+              borderRadius={10} 
+              isLoading={isLoadingCategory}
+          />
     </Modal>
     <Modal isOpen={modalEditOpen} onClosed={()=>setModalEditOpen(false)}  style={styles.modalNew} backgroundColor={'#ff0'} coverScreen={true} position={"bottom"} ref={modalEditRef}>
          <Text style={styles.modalTitle}>Edit Category</Text>
@@ -169,16 +176,16 @@ const Categories = ({navigation}) => {
             keyboard={'default'}
           />
           <Botao 
-        onPress={()=>update()} 
-        text={'UPDATE CATEGORY'} 
-        textSize={16} 
-        textColor={cores.white} 
-        width={'100%'} 
-        backgroundColor={cores.primary} 
-        borderWidth={0} 
-        borderRadius={10} 
-        isLoading={isLoadingCategory}
-    />
+              onPress={()=>update()} 
+              text={'UPDATE CATEGORY'} 
+              textSize={16} 
+              textColor={cores.white} 
+              width={'100%'} 
+              backgroundColor={cores.primary} 
+              borderWidth={0} 
+              borderRadius={10} 
+              isLoading={isLoadingCategory}
+          />
     </Modal>
     
    
@@ -216,7 +223,6 @@ const styles = StyleSheet.create({
       padding:20
     },
     modalTitle:{
-     
       fontSize: 22,
       fontWeight:'bold',
       color: cores.onyxBlack

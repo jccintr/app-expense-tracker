@@ -127,6 +127,30 @@ export default {
         });
         return response;
     },
+    updateAccount: async (token,id,name) => {
+        const response = await fetch(`${BASE_API}/accounts/${id}`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({name})
+        });
+        return response;
+    },
+    deleteAccount: async (token,id) => {
+        const response = await fetch(`${BASE_API}/accounts/${id}`, {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            
+        });
+        return response;
+    },
   
   
    
