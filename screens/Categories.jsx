@@ -9,6 +9,7 @@ import HeightSpacer from '../components/reusable/HeightSpacer';
 import Modal from 'react-native-modalbox';
 import InputField from '../components/InputField';
 import Botao from '../components/reusable/Botao';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 
@@ -33,6 +34,41 @@ const Categories = ({navigation}) => {
          setSelectedCategory(category);
          setName(category.name);
          setModalEditOpen(true);
+     }
+
+     const onDelete = async ()=>{
+       console.log('tocou no delete');
+       Alert.alert(
+        "Warning", // Título do alerta
+        "Do you want delete this category ?", // Mensagem
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Usuário escolheu Não"),
+            style: "cancel"
+          },
+          {
+            text: "Delete",
+            onPress: () => deleteCategory()
+          }
+        ]
+      );s
+     }
+
+     const deleteCategory = async () => {
+            setIsLoadingCategory(true);
+            const response = await api.deleteCategory(token,selectedCategory.id);
+            if(response.ok){
+              getCategories();
+              setIsLoadingCategory(false);
+              setModalEditOpen(false);
+              return;
+            }
+            const result = await response.json();
+            const error = result.error;
+            setIsLoadingCategory(false);
+            Alert.alert('Error',error);
+            return;
      }
     const update = async () => {
 
@@ -120,6 +156,9 @@ const Categories = ({navigation}) => {
     </Modal>
     <Modal isOpen={modalEditOpen} onClosed={()=>setModalEditOpen(false)}  style={styles.modalNew} backgroundColor={'#ff0'} coverScreen={true} position={"bottom"} ref={modalEditRef}>
          <Text style={styles.modalTitle}>Edit Category</Text>
+         <TouchableOpacity style={styles.deleteBtn} onPress={()=>onDelete()}>
+            <FontAwesome name="trash-o" size={24} color={cores.vermelho} />
+         </TouchableOpacity>
          <HeightSpacer h={20}/>
          <InputField 
             label={'Name:'} 
@@ -181,5 +220,10 @@ const styles = StyleSheet.create({
       fontSize: 22,
       fontWeight:'bold',
       color: cores.onyxBlack
+    },
+    deleteBtn:{
+      position:'absolute',
+      top:25,
+      right:30
     }
 })

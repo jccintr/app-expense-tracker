@@ -103,6 +103,18 @@ export default {
         });
         return response;
     },
+    deleteCategory: async (token,id) => {
+        const response = await fetch(`${BASE_API}/categories/${id}`, {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            
+        });
+        return response;
+    },
     addAccount: async (token,name) => {
         const response = await fetch(`${BASE_API}/accounts`, {
             method: 'POST',
