@@ -1,14 +1,15 @@
 import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
 import React from 'react'
 import { cores } from '../../styles/core'
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+//import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Entypo from '@expo/vector-icons/Entypo';
 
 const AccountCard = ({account}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{account.name}</Text>
       <TouchableOpacity onPress={()=>{}}>
-        <FontAwesome name="trash-o" size={20} color={cores.vermelho} />
+        <Entypo name="chevron-small-right" size={24} color={cores.jetBlack} />
       </TouchableOpacity>
     </View>
   )

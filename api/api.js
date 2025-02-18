@@ -79,6 +79,42 @@ export default {
         });
         return response;
     },
+    addCategory: async (token,name) => {
+        const response = await fetch(`${BASE_API}/categories`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({name})
+        });
+        return response;
+    },
+    updateCategory: async (token,id,name) => {
+        const response = await fetch(`${BASE_API}/categories/${id}`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({name})
+        });
+        return response;
+    },
+    addAccount: async (token,name) => {
+        const response = await fetch(`${BASE_API}/accounts`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({name})
+        });
+        return response;
+    },
   
   
    
