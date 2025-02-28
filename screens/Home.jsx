@@ -13,6 +13,7 @@ import Modal from 'react-native-modalbox';
 import InputField from '../components/InputField';
 import Botao from '../components/reusable/Botao';
 import ItemSelector from '../components/ItemSelector';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 const Home = ({navigation}) => {
@@ -132,6 +133,42 @@ const onEdit = (t) =>{
     }
   }
 
+  const onDelete = async ()=>{
+            
+             Alert.alert(
+              "Warning", // Título do alerta
+              "Do you want delete this transaction ?", // Mensagem
+              [
+                {
+                  text: "Cancel",
+                  onPress: () => console.log("Usuário escolheu Não"),
+                  style: "cancel"
+                },
+                {
+                  text: "Delete",
+                  onPress: () => deleteTransaction()
+                }
+              ]
+            );
+           }
+  
+        const deleteTransaction = async () => {
+         // console.log(transaction);
+              setIsLoadingTransaction(true);
+              const response = await api.deleteTransaction(token,transaction.id);
+              if(response.ok){
+                getTransactions();
+                setIsLoadingTransaction(false);
+                setModalEditOpen(false);
+                return;
+              }
+              const result = await response.json();
+              const error = result.error;
+              setIsLoadingTransaction(false);
+              Alert.alert('Error',error);
+              return;
+       }
+
 const onAdd = () => {
   setSelectedTransaction(null);
   setSelectedCategory(null);
@@ -234,6 +271,9 @@ const onAdd = () => {
           </Modal>
           <Modal isOpen={modalEditOpen} onClosed={()=>setModalEditOpen(false)} style={styles.modal} backgroundColor={'#ff0'} coverScreen={true} position={"bottom"} ref={modalEditRef}>
               <Text style={styles.modalTitle}>Edit Transaction</Text>
+              <TouchableOpacity style={styles.deleteBtn} onPress={()=>onDelete()}>
+                 <FontAwesome name="trash-o" size={24} color={cores.vermelho} />
+              </TouchableOpacity>
               <HeightSpacer h={20}/>
               <InputField 
                   label={'Description:'} 
@@ -308,6 +348,11 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     color: cores.onyxBlack
   },
+  deleteBtn:{
+    position:'absolute',
+    top:25,
+    right:30
+  }
 
   
 })

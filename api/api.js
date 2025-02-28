@@ -175,6 +175,18 @@ export default {
         });
         return response;
     },
+    deleteTransaction: async (token,id) => {
+        const response = await fetch(`${BASE_API}/transactions/${id}`, {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            
+        });
+        return response;
+    },
   
   
    
