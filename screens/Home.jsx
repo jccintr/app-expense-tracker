@@ -95,9 +95,47 @@ const Home = ({navigation}) => {
     navigation.reset({routes:[{name:'login'}]})
 }
 
+const onEdit = (t) =>{
+ 
+  setSelectedTransaction(transactions);
+  setSelectedCategory(t.category);
+  setSelectedAccount(t.account);
+  setTransaction({id:t.id,description:t.description,amount:t.amount.toFixed(2),category_id:t.category.id,account_id:t.account.id});
+  
+  setModalEditOpen(true);
+}
+
+ const update = async () => {
+     
+  if(transaction.description.trim().length===0){
+    Alert.alert("Error","Please, enter a valid description.");
+    return;
+   }
+   if(transaction.amount.trim().length===0){
+    Alert.alert("Error","Please, enter a valid amount.");
+    return;
+   }
+   if(!transaction.category_id){
+    Alert.alert("Error","Please, select a category.");
+    return;
+   }
+   if(!transaction.account_id){
+    Alert.alert("Error","Please, select a account.");
+    return;
+   }
+   setIsLoadingTransaction(true);
+    const response = await api.updateTransaction(token,transaction.id,transaction);
+    if(response.ok){
+      getTransactions();
+      setIsLoadingTransaction(false);
+      setModalEditOpen(false);
+    }
+  }
+
 const onAdd = () => {
   setSelectedTransaction(null);
   setSelectedCategory(null);
+  setSelectedAccount(null);
   setTransaction({description:'',amount:'',category_id:null,account_id:null});
   setModalNewOpen(true)
 }
@@ -123,7 +161,7 @@ const onAdd = () => {
           setIsLoadingTransaction(true);
           const response = await api.addTransaction(token,transaction);
           if(response.ok){
-            // getCategories();
+            getTransactions();
              setIsLoadingTransaction(false);
              setModalNewOpen(false);
           }
@@ -159,7 +197,7 @@ const onAdd = () => {
           <HeightSpacer h={10}/>
           <DateSelector data={data} setData={setData}/>
           {isLoading&&<ActivityIndicator color={cores.primary} size={'large'} style={{position:'absolute',top:'50%'}}/>}
-          {!isLoading&&<TransactionsList transactions={transactions}/>}
+          {!isLoading&&<TransactionsList transactions={transactions} onPress={onEdit}/>}
           <Modal isOpen={modalNewOpen} onClosed={()=>setModalNewOpen(false)} style={styles.modal} backgroundColor={'#ff0'} coverScreen={true} position={"bottom"} ref={modalNewRef}>
               <Text style={styles.modalTitle}>New Transaction</Text>
               <HeightSpacer h={20}/>
@@ -193,7 +231,41 @@ const onAdd = () => {
                     borderRadius={10} 
                     isLoading={isLoadingTransaction}
                 />
-        </Modal>
+          </Modal>
+          <Modal isOpen={modalEditOpen} onClosed={()=>setModalEditOpen(false)} style={styles.modal} backgroundColor={'#ff0'} coverScreen={true} position={"bottom"} ref={modalEditRef}>
+              <Text style={styles.modalTitle}>Edit Transaction</Text>
+              <HeightSpacer h={20}/>
+              <InputField 
+                  label={'Description:'} 
+                  placeholder={'Enter transaction description'} 
+                  value={transaction.description} 
+                  onChangeText={t=>setTransaction({ ...transaction, description: t })} 
+                  password={false} 
+                  keyboard={'default'}
+                />
+                <InputField 
+                  label={'Amount:'} 
+                  placeholder={'Enter transaction amount'} 
+                  value={transaction.amount} 
+                  onChangeText={t=>setTransaction({ ...transaction, amount: t })} 
+                  password={false} 
+                  keyboard={'number-pad'}
+                />
+                <ItemSelector items={categories}  label="Category" selectedItem={selectedCategory} onSelect={selectCategory}/>
+                <ItemSelector items={accounts}  label="Account" selectedItem={selectedAccount} onSelect={selectAccount}/>
+                <HeightSpacer h={10}/>
+                <Botao 
+                    onPress={()=>update()} 
+                    text={'UPDATE TRANSACTION'} 
+                    textSize={16} 
+                    textColor={cores.white} 
+                    width={'100%'} 
+                    backgroundColor={cores.primary} 
+                    borderWidth={0} 
+                    borderRadius={10} 
+                    isLoading={isLoadingTransaction}
+                />
+          </Modal>
     </SafeAreaView>
   )
 }

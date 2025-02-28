@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
 import React from 'react'
 import { cores } from '../../styles/core'
 import { formataHora, formatarMoeda } from '../../util/util'
 
-const TransactionCard = ({transaction}) => {
+const TransactionCard = ({transaction,onPress}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={()=>onPress(transaction)}>
       <View style={{width:'100%',flexDirection:'row',justifyContent:'space-between'}}>
         <Text style={styles.descriptionText}>{transaction.description}</Text>
         <Text style={styles.amountText}>{formatarMoeda(transaction.amount)}</Text>
@@ -14,7 +14,7 @@ const TransactionCard = ({transaction}) => {
         <Text style={styles.dataText}>{formataHora(transaction.createdAt)} - {transaction.category.name}</Text>
         <Text style={styles.accountText}>{transaction.account.name}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

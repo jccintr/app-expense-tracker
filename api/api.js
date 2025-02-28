@@ -163,6 +163,18 @@ export default {
         });
         return response;
     },
+    updateTransaction: async (token,id,fd) => {
+        const response = await fetch(`${BASE_API}/transactions/${id}`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(fd)
+        });
+        return response;
+    },
   
   
    

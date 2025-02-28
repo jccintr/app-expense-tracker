@@ -6,7 +6,7 @@ import HeightSpacer from './reusable/HeightSpacer'
 
 
 
-const TransactionsList = ({transactions}) => {
+const TransactionsList = ({transactions,onPress}) => {
   return (
     <>
     <HeightSpacer h={10}/>
@@ -15,7 +15,7 @@ const TransactionsList = ({transactions}) => {
         style={{width:'100%'}}
         data={transactions}
         keyExtractor={(item)=> item.id.toString()}
-        renderItem={({item})=><TransactionCard transaction={item} />}
+        renderItem={({item})=><TransactionCard transaction={item} onPress={onPress}/>}
         ItemSeparatorComponent={<HeightSpacer h={8}/>}
         ListEmptyComponent={<EmptyList title="No transactions found" mensagem={'Please, change the date or create a new transaction'}/>}
         contentContainerStyle={transactions.length===0?{flexGrow:1,alignItems:'center',justifyContent:'center'}:''}
