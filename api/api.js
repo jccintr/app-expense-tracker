@@ -187,6 +187,17 @@ export default {
         });
         return response;
     },
+    search: async (token,qs) => {
+        const response = await fetch(`${BASE_API}/transactions/search?${qs}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        });
+        return response;
+    },
   
   
    
