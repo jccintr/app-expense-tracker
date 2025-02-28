@@ -3,7 +3,7 @@
 //const BASE_API = 'http://192.168.0.104:3000';
 //const BASE_API = 'https://taxibraz.onrender.com';
 //const BASE_API = 'http://192.168.1.9:8000/api';
-const BASE_API = 'http://192.168.1.9:3333';
+const BASE_API = 'http://192.168.1.12:3333';
 
 
 export default {
@@ -148,6 +148,18 @@ export default {
                 'Authorization': 'Bearer ' + token
             },
             
+        });
+        return response;
+    },
+    addTransaction: async (token,fd) => {
+        const response = await fetch(`${BASE_API}/transactions`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(fd)
         });
         return response;
     },

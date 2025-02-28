@@ -22,8 +22,12 @@ export default TransactionCard
 
 const styles = StyleSheet.create({
     container:{
-        width:'100%',
-        marginVertical:10,
+     // flexDirection:'row',
+      justifyContent:'space-between',
+      width:'100%',
+      backgroundColor:cores.inputBackground,
+      padding: 20,
+      borderRadius: 20
     },
     descriptionText:{
         fontSize:16,

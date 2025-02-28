@@ -1,23 +1,36 @@
-import { StyleSheet, Text, SafeAreaView,StatusBar,View,ActivityIndicator,ToastAndroid } from 'react-native'
-import React, {useContext,useState,useEffect} from 'react'
-import Botao from '../components/reusable/Botao'
+import { StyleSheet, Text, SafeAreaView,StatusBar,View,ActivityIndicator,ToastAndroid,TouchableOpacity,Alert } from 'react-native'
+import React, {useContext,useState,useEffect,createRef} from 'react'
 import HeightSpacer from '../components/reusable/HeightSpacer'
 import { cores } from '../styles/core'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../context/AuthContext'
 import FakeSearchField from '../components/FakeSearchField'
-import Entypo from '@expo/vector-icons/Entypo';
 import api from '../api/api'
 import TransactionsList from '../components/TransactionsList'
 import DateSelector from '../components/DateSelector'
 import { formataDataAPI } from '../util/util'
+import Modal from 'react-native-modalbox';
+import InputField from '../components/InputField';
+import Botao from '../components/reusable/Botao';
+import ItemSelector from '../components/ItemSelector';
 
 
 const Home = ({navigation}) => {
     const {setLoggedUser,setToken,loggedUser,token} = useContext(AuthContext);
     const [isLoading,setIsLoading] = useState(false);
+    const [isLoadingTransaction,setIsLoadingTransaction] = useState(false);
     const [transactions,setTransactions] = useState([]);
+    const [transaction,setTransaction] = useState({description:'',amount:'',category_id:'1',account_id:'1'});
+    const [selectedTransaction,setSelectedTransaction] = useState(null);
     const [data,setData] = useState(null);
+    const modalNewRef = createRef();
+    const modalEditRef = createRef();
+    const [modalNewOpen,setModalNewOpen] = useState(false);
+    const [modalEditOpen,setModalEditOpen] = useState(false);
+    const [categories,setCategories] = useState([]);
+    const [selectedCategory,setSelectedCategory] = useState(null);
+    const [accounts,setAccounts] = useState([]);
+    const [selectedAccount,setSelectedAccount] = useState(null);
    
 
     useEffect(()=>{
@@ -34,6 +47,11 @@ const Home = ({navigation}) => {
         getTransactions();
     },[data]);
 
+    useEffect(()=>{
+      getCategories();
+      getAccounts();
+  },[]);
+
 
   const getTransactions = async () => {
       setIsLoading(true)
@@ -46,6 +64,30 @@ const Home = ({navigation}) => {
       setIsLoading(false)
   }
 
+  const getCategories = async () => {
+  
+      setIsLoading(true)
+      const response = await api.getCategories(token);
+      if(response.ok){
+          const json = await response.json();
+          setCategories(json);
+          setIsLoading(false)
+      }       
+          
+   }
+
+   const getAccounts = async () => {
+  
+    setIsLoading(true)
+    const response = await api.getAccounts(token);
+    if(response.ok){
+        const json = await response.json();
+        setAccounts(json);
+        setIsLoading(false)
+    }       
+        
+ }
+
   const logout = async  () => {
     await AsyncStorage.removeItem('token');
     setToken(null);
@@ -53,6 +95,50 @@ const Home = ({navigation}) => {
     navigation.reset({routes:[{name:'login'}]})
 }
 
+const onAdd = () => {
+  setSelectedTransaction(null);
+  setSelectedCategory(null);
+  setTransaction({description:'',amount:'',category_id:null,account_id:null});
+  setModalNewOpen(true)
+}
+
+  const add = async () => {
+
+         if(transaction.description.trim().length===0){
+          Alert.alert("Error","Please, enter a valid description.");
+          return;
+         }
+         if(transaction.amount.trim().length===0){
+          Alert.alert("Error","Please, enter a valid amount.");
+          return;
+         }
+         if(!transaction.category_id){
+          Alert.alert("Error","Please, select a category.");
+          return;
+         }
+         if(!transaction.account_id){
+          Alert.alert("Error","Please, select a account.");
+          return;
+         }
+          setIsLoadingTransaction(true);
+          const response = await api.addTransaction(token,transaction);
+          if(response.ok){
+            // getCategories();
+             setIsLoadingTransaction(false);
+             setModalNewOpen(false);
+          }
+         
+    }
+
+    const selectCategory = (category) => {
+      setTransaction({ ...transaction, category_id: category.id });
+      setSelectedCategory(category);
+    }
+
+    const selectAccount = (account) => {
+      setTransaction({ ...transaction, account_id: account.id });
+      setSelectedAccount(account);
+    }
 
   return (
      <SafeAreaView style={styles.container}>
@@ -66,13 +152,48 @@ const Home = ({navigation}) => {
           <HeightSpacer h={10}/>
           <View style={{width:'100%',flexDirection:'row',justifyContent:'space-between'}}>
              <Text style={styles.subTitle}>Transactions</Text>
-            
+             <TouchableOpacity onPress={() => onAdd()}>
+                    <Text style={{color:cores.blueGray,fontSize:16}}>Add</Text>
+             </TouchableOpacity>
           </View>
           <HeightSpacer h={10}/>
           <DateSelector data={data} setData={setData}/>
           {isLoading&&<ActivityIndicator color={cores.primary} size={'large'} style={{position:'absolute',top:'50%'}}/>}
           {!isLoading&&<TransactionsList transactions={transactions}/>}
-         
+          <Modal isOpen={modalNewOpen} onClosed={()=>setModalNewOpen(false)} style={styles.modal} backgroundColor={'#ff0'} coverScreen={true} position={"bottom"} ref={modalNewRef}>
+              <Text style={styles.modalTitle}>New Transaction</Text>
+              <HeightSpacer h={20}/>
+              <InputField 
+                  label={'Description:'} 
+                  placeholder={'Enter transaction description'} 
+                  value={transaction.description} 
+                  onChangeText={t=>setTransaction({ ...transaction, description: t })} 
+                  password={false} 
+                  keyboard={'default'}
+                />
+                <InputField 
+                  label={'Amount:'} 
+                  placeholder={'Enter transaction amount'} 
+                  value={transaction.amount} 
+                  onChangeText={t=>setTransaction({ ...transaction, amount: t })} 
+                  password={false} 
+                  keyboard={'number-pad'}
+                />
+                <ItemSelector items={categories}  label="Category" selectedItem={selectedCategory} onSelect={selectCategory}/>
+                <ItemSelector items={accounts}  label="Account" selectedItem={selectedAccount} onSelect={selectAccount}/>
+                <HeightSpacer h={10}/>
+                <Botao 
+                    onPress={()=>add()} 
+                    text={'ADD TRANSACTION'} 
+                    textSize={16} 
+                    textColor={cores.white} 
+                    width={'100%'} 
+                    backgroundColor={cores.primary} 
+                    borderWidth={0} 
+                    borderRadius={10} 
+                    isLoading={isLoadingTransaction}
+                />
+        </Modal>
     </SafeAreaView>
   )
 }
@@ -104,7 +225,17 @@ const styles = StyleSheet.create({
      fontSize: 22,
     fontWeight:'bold',
     color: cores.onyxBlack
-  }
+  },
+  modal: {
+    alignItems:'center',
+    height: 500,
+    padding:20
+  },
+  modalTitle:{
+    fontSize: 22,
+    fontWeight:'bold',
+    color: cores.onyxBlack
+  },
 
   
 })
