@@ -6,7 +6,7 @@ import { cores } from '../styles/core';
 const FakeSearchField = () => {
   return (
     <View style={styles.container}>
-        <FontAwesome name="search" size={22} color={cores.searchIconColor} />
+      <FontAwesome name="search" size={22} color={cores.searchIconColor} />
       <Text style={{fontSize: 14, color: cores.inputPlaceholderColor}}>Search</Text>
     </View>
   )

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView,StatusBar,View,ActivityIndicator,ToastAndroid,TouchableOpacity,Alert } from 'react-native'
+import { StyleSheet, Text, SafeAreaView,StatusBar,View,ActivityIndicator,ToastAndroid,TouchableOpacity,Alert,Pressable } from 'react-native'
 import React, {useContext,useState,useEffect,createRef} from 'react'
 import HeightSpacer from '../components/reusable/HeightSpacer'
 import { cores } from '../styles/core'
@@ -206,13 +206,27 @@ const onAdd = () => {
     }
 
     const selectCategory = (category) => {
-      setTransaction({ ...transaction, category_id: category.id });
-      setSelectedCategory(category);
+      if(category){
+        setTransaction({ ...transaction, category_id: category.id });
+        setSelectedCategory(category);
+      } else {
+        setTransaction({ ...transaction, category_id: null });
+        setSelectedCategory(null);
+      }
+     
+     
     }
 
     const selectAccount = (account) => {
-      setTransaction({ ...transaction, account_id: account.id });
-      setSelectedAccount(account);
+      if(account){
+        setTransaction({ ...transaction, account_id: account.id });
+        setSelectedAccount(account);
+      } else {
+        setTransaction({ ...transaction, account_id: null });
+        setSelectedAccount(null);
+      }
+     
+     
     }
 
   return (
@@ -223,7 +237,9 @@ const onAdd = () => {
              <Text style={styles.userName}>{loggedUser.name}</Text>
           </View>
           <HeightSpacer h={10}/>
-          <FakeSearchField/>
+          <Pressable onPress={()=>navigation.navigate('home', {screen: 'Search'})} style={{width:'100%'}}>
+             <FakeSearchField/>
+          </Pressable>
           <HeightSpacer h={10}/>
           <View style={{width:'100%',flexDirection:'row',justifyContent:'space-between'}}>
              <Text style={styles.subTitle}>Transactions</Text>
