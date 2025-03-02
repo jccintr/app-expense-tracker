@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     deleteBtn:{
       position:'absolute',
       top:25,
-      right:30
+      right:30,
+     
     }
 })
