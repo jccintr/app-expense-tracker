@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Pressable } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
 import React,{useState} from 'react'
 import Entypo from '@expo/vector-icons/Entypo';
 import { cores } from '../styles/core';
@@ -33,15 +33,15 @@ const DateSelector = ({data,setData}) => {
 
   return (
     <View style={styles.container}>
-       <Pressable onPress={previousDay}>
-          <Entypo name="chevron-left" size={44} color={cores.primary} />
-       </Pressable>
-       <Pressable style={styles.dateButton} onPress={()=>setDatePickerVisible(true)}>
+       <TouchableOpacity style={styles.navButton} onPress={previousDay}>
+          <Entypo name="chevron-left" size={36} color={cores.inputPlaceholderColor} />
+       </TouchableOpacity>
+       <TouchableOpacity style={styles.dateButton} onPress={()=>setDatePickerVisible(true)}>
           <Text style={{fontSize:20,fontWeight:'bold'}}>{formataData(data)}</Text>
-       </Pressable>
-       <Pressable onPress={nextDay}>
-          <Entypo name="chevron-right" size={44} color={cores.primary} />
-       </Pressable>
+       </TouchableOpacity>
+       <TouchableOpacity style={styles.navButton} onPress={nextDay}>
+          <Entypo name="chevron-right" size={36} color={cores.inputPlaceholderColor} />
+       </TouchableOpacity>
        {datePickerVisible && (<DateTimePicker
                   value={data}
                   mode="date"
@@ -70,5 +70,10 @@ const styles = StyleSheet.create({
        paddingVertical:5,
        paddingHorizontal:15,
        borderRadius:10
+    },
+    navButton:{
+      backgroundColor: cores.inputBackground,
+      borderRadius: 50,
+      padding:5,
     }
 })

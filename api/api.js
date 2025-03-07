@@ -198,6 +198,28 @@ export default {
         });
         return response;
     },
+    weekChart: async (token,week) => {
+        const response = await fetch(`${BASE_API}/transactions/summary/week?week_number=${week}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        });
+        return response;
+    },
+    donutChart: async (token,month,year) => {
+        const response = await fetch(`${BASE_API}/transactions/summary/category?monthr=${month}&year=${year}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        });
+        return response;
+    },
   
   
    

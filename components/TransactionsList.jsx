@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native'
+import { FlatList,View } from 'react-native'
 import React from 'react'
 import TransactionCard from './cards/TransactionCard'
 import EmptyList from './reusable/EmptyList'
