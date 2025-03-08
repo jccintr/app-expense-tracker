@@ -210,7 +210,7 @@ export default {
         return response;
     },
     donutChart: async (token,month,year) => {
-        const response = await fetch(`${BASE_API}/transactions/summary/category?monthr=${month}&year=${year}`, {
+        const response = await fetch(`${BASE_API}/transactions/summary/category?month=${month}&year=${year}`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

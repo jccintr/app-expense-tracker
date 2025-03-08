@@ -82,7 +82,7 @@ const WeeklyChart = () => {
     <View style={styles.container}>
       {isLoading&&<ActivityIndicator color={cores.primary} size={'large'} />}
       {!isLoading&&<View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-         <Text style={styles.weekText}>{`Week ${firstDay?.getDate()} ${months[firstDay?.getMonth()]} - ${lastDay?.getDate()} ${months[lastDay?.getMonth()]}`}</Text>
+         <Text style={styles.weekText}>{`${firstDay?.getDate()} ${months[firstDay?.getMonth()]} - ${lastDay?.getDate()} ${months[lastDay?.getMonth()]}`}</Text>
          <Text style={styles.amountText}>{total.toFixed(2)}</Text>
       </View>}
       <HeightSpacer h={10} />
@@ -129,18 +129,16 @@ const styles = StyleSheet.create({
       elevation: 6,
   },
   weekText:{
-     fontSize: 20,
+     fontSize: 18,
      fontWeight:'bold'
   },
   amountText:{
-     fontSize: 20,
+     fontSize: 18,
      fontWeight:'bold',
-     
   },
   navButton:{
     backgroundColor: cores.inputBackground,
     borderRadius: 50,
-   
     width:35,
     height:35,
     alignItems:'center',
