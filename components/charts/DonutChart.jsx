@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,TouchableOpacity,ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View,ActivityIndicator } from 'react-native'
 import React,{useState,useEffect,useContext} from 'react'
 import { cores } from '../../styles/core'
 import { PieChart  } from "react-native-gifted-charts";
@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import HeightSpacer from '../reusable/HeightSpacer';
 import LegendItem from './LegendItem';
 import api from '../../api/api';
-import Entypo from '@expo/vector-icons/Entypo';
+import NavButton from '../NavButton';
 
 //const chartData = [{value: 15}, {value: 30}, {value: 26}, {value: 40}];
 const months = ['January','February','March','April','May','June','July','August','September','November','December'];
@@ -105,7 +105,7 @@ useEffect(()=>{
       setDate(newDate);
       const mes = newDate.getMonth()+1;
       const ano = newDate.getFullYear();
-      console.log(mes,ano)
+      
       getData(mes,ano);
     }
 
@@ -132,21 +132,10 @@ useEffect(()=>{
             </View>}
         <HeightSpacer h={10}/>
         <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-          <View style={{alignItems:'center',justifyContent:'center'}}>
-              <TouchableOpacity style={styles.navButton} onPress={previousMonth}>
-                  <Entypo name="chevron-left" size={30} color={cores.inputPlaceholderColor} />
-              </TouchableOpacity>
-              <Text style={styles.navText}>Previous month</Text>
-          </View>
+          <NavButton type='previous' label='Previous month' onPress={previousMonth}/>
+          <NavButton type='next' label='Next month' onPress={nextMonth}/>
           {chartData.length==0&&<Text style={{fontWeight:'bold',color:cores.primary}}>No data found.</Text>}
-          <View style={{alignItems:'center',justifyContent:'center'}}>
-              <TouchableOpacity style={styles.navButton} onPress={nextMonth}>
-                <Entypo name="chevron-right" size={30} color={cores.inputPlaceholderColor} />
-              </TouchableOpacity>
-              <Text style={styles.navText}>Next month</Text>
-          </View>
-      </View>
-     
+        </View>
     </View>
   )
 }
@@ -166,16 +155,5 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight:'bold'
      },
-     navButton:{
-      backgroundColor: cores.inputBackground,
-      borderRadius: 50,
-      width:35,
-      height:35,
-      alignItems:'center',
-      justifyContent:'center'
-    },
-    navText:{
-      fontSize: 14,
-      color: cores.inputPlaceholderColor
-    }
+  
 })

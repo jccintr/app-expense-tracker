@@ -5,8 +5,11 @@ import { cores } from '../styles/core';
 
 const NavButton = ({label,type,onPress}) => {
   return (
-    <View>
-      <Text>NavButton</Text>
+    <View style={{alignItems:'center',justifyContent:'center'}}>
+        <TouchableOpacity style={styles.navButton} onPress={onPress}>
+        <Entypo name={type=='next'?'chevron-right':'chevron-left'} size={30} color={cores.inputPlaceholderColor} />
+        </TouchableOpacity>
+        <Text style={styles.navText}>{label}</Text>
     </View>
   )
 }

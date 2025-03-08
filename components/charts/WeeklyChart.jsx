@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View,TouchableOpacity,ActivityIndicator,Dimensions } from 'react-native'
+import { StyleSheet, Text, View,ActivityIndicator,Dimensions } from 'react-native'
 import React,{useState,useEffect,useContext} from 'react'
 import { BarChart  } from "react-native-gifted-charts";
 import { cores } from '../../styles/core';
 import HeightSpacer from '../reusable/HeightSpacer';
-import Entypo from '@expo/vector-icons/Entypo';
 import api from '../../api/api';
 import { AuthContext } from '../../context/AuthContext';
 import { getWeekNumber } from '../../util/util';
+import NavButton from '../NavButton';
 /*
 const barData = [
   {value: 15, label:'D'},
@@ -90,7 +90,6 @@ const WeeklyChart = () => {
         width={window_width*.7}
         height={150}
         barWidth={20}
-        //stepHeight={2}
         spacing={15}
         showFractionalValues
         data={barData}
@@ -100,18 +99,8 @@ const WeeklyChart = () => {
       />
       <HeightSpacer h={10}/>
       <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-          <View style={{alignItems:'center'}}>
-              <TouchableOpacity style={styles.navButton} onPress={previousWeek}>
-                  <Entypo name="chevron-left" size={30} color={cores.inputPlaceholderColor} />
-              </TouchableOpacity>
-              <Text style={styles.navText}>Previous week</Text>
-          </View>
-          <View style={{alignItems:'center'}}>
-              <TouchableOpacity style={styles.navButton} onPress={nextWeek}>
-                <Entypo name="chevron-right" size={30} color={cores.inputPlaceholderColor} />
-              </TouchableOpacity>
-              <Text style={styles.navText}>Next week</Text>
-          </View>
+         <NavButton type='previous' label='Previous week' onPress={previousWeek}/>
+         <NavButton type='next' label='Next week' onPress={nextWeek}/>
       </View>
     </View>
   )
@@ -136,16 +125,5 @@ const styles = StyleSheet.create({
      fontSize: 18,
      fontWeight:'bold',
   },
-  navButton:{
-    backgroundColor: cores.inputBackground,
-    borderRadius: 50,
-    width:35,
-    height:35,
-    alignItems:'center',
-    justifyContent:'center'
-  },
-  navText:{
-    fontSize: 14,
-    color: cores.inputPlaceholderColor
-  }
+ 
 })
