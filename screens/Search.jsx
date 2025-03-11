@@ -96,17 +96,20 @@ const Search = () => {
     qs += `&account=${selectedAccount.id}`;
    }
      setIsLoading(true);
+     console.log(qs)
+
     const response = await api.search(token,qs);
     if (response.ok){
-      let json = await response.json();
+      var json = await response.json();
       setSearchResults(json);
     }
     setIsLoading(false);
-    if(searchResults.length===0){
+    if(json.length===0){
        ToastAndroid.show(`No results found.`, ToastAndroid.LONG);
        return;
     }
     setModalResultsOpen(true);
+
   }
 
   return (

@@ -220,6 +220,17 @@ export default {
         });
         return response;
     },
+    pieChart: async (token,month,year) => {
+        const response = await fetch(`${BASE_API}/transactions/summary/account?month=${month}&year=${year}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        });
+        return response;
+    },
   
   
    

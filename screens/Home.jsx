@@ -56,7 +56,7 @@ const Home = ({navigation}) => {
 
   const getTransactions = async () => {
       setIsLoading(true)
-     
+     console.log(formataDataAPI(data))
       const response = await api.getTransactions(formataDataAPI(data),token);
       if(response.status===401){ logout();}
      
@@ -270,8 +270,12 @@ const onAdd = () => {
                   password={false} 
                   keyboard={'number-pad'}
                 />
-                <ItemSelector items={categories}  label="Category" selectedItem={selectedCategory} onSelect={selectCategory}/>
-                <ItemSelector items={accounts}  label="Account" selectedItem={selectedAccount} onSelect={selectAccount}/>
+                <View style={{width:'100%',alignItems:'flex-start'}}>
+                   <ItemSelector items={categories}  label="Category" selectedItem={selectedCategory} onSelect={selectCategory}/>
+                </View>
+                <View style={{width:'100%',alignItems:'flex-start'}}>
+                   <ItemSelector items={accounts}  label="Account" selectedItem={selectedAccount} onSelect={selectAccount}/>
+                </View>
                 <HeightSpacer h={10}/>
                 <Botao 
                     onPress={()=>add()} 
@@ -307,8 +311,12 @@ const onAdd = () => {
                   password={false} 
                   keyboard={'number-pad'}
                 />
-                <ItemSelector items={categories}  label="Category" selectedItem={selectedCategory} onSelect={selectCategory}/>
-                <ItemSelector items={accounts}  label="Account" selectedItem={selectedAccount} onSelect={selectAccount}/>
+                 <View style={{width:'100%',alignItems:'flex-start'}}>
+                     <ItemSelector items={categories}  label="Category" selectedItem={selectedCategory} onSelect={selectCategory}/>
+                 </View>
+                 <View style={{width:'100%',alignItems:'flex-start'}}>
+                     <ItemSelector items={accounts}  label="Account" selectedItem={selectedAccount} onSelect={selectAccount}/>
+                 </View>
                 <HeightSpacer h={10}/>
                 <Botao 
                     onPress={()=>update()} 

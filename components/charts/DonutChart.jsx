@@ -7,38 +7,17 @@ import HeightSpacer from '../reusable/HeightSpacer';
 import LegendItem from './LegendItem';
 import api from '../../api/api';
 import NavButton from '../NavButton';
+import { gerarCorHexAleatoria, calcularPercentual,months } from '../../util/util';
 
-//const chartData = [{value: 15}, {value: 30}, {value: 26}, {value: 40}];
-const months = ['January','February','March','April','May','June','July','August','September','November','December'];
 
-function gerarCorHexAleatoria() {
-    const caracteres = '0123456789ABCDEF';
-    let cor = '#';
-    
-    for (let i = 0; i < 6; i++) {
-      cor += caracteres[Math.floor(Math.random() * 16)];
-    }
-  
-    return cor;
-  }
 
-  function calcularPercentual(total, valor) {
-
-    if (total === 0) {
-      return "0%"; // Evita divisão por zero
-    }
-    
-    const percentual = Math.round((valor / total) * 100);
-    return `${percentual}%`;
-
-  }
 
 const DonutChart = () => {
-     const [isLoading,setIsLoading] = useState(false);
-     const {token} = useContext(AuthContext);
-     const [chartData,setChartData] = useState([]);
-     const [total,setTotal] = useState(0);
-     const [date,setDate] = useState(null)
+  const [isLoading,setIsLoading] = useState(false);
+  const {token} = useContext(AuthContext);
+  const [chartData,setChartData] = useState([]);
+  const [total,setTotal] = useState(0);
+  const [date,setDate] = useState(null)
 
 
 
@@ -53,9 +32,8 @@ useEffect(()=>{
   const getData = async (mes,ano) => {
 
     setIsLoading(true);
- //  console.log('no getData',mes,ano);
     const response = await api.donutChart(token,mes,ano);
-   // console.log(response.status);
+  
     if(response.ok){
       const json = await response.json();
       if(json.categories.length>0){
@@ -64,7 +42,7 @@ useEffect(()=>{
       else {
         setChartData([]);
       }
-     //console.log(json.total_amount);
+    
       setTotal(json.total_amount);
     }
     setIsLoading(false)
@@ -94,8 +72,7 @@ useEffect(()=>{
       setDate(newDate);
       const mes = newDate.getMonth()+1;
       const ano = newDate.getFullYear();
-     // console.log(mes,ano)
-     getData(mes,ano);
+       getData(mes,ano);
     }
 
     const previousMonth =  () => {
@@ -134,7 +111,7 @@ useEffect(()=>{
         <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
           <NavButton type='previous' label='Previous month' onPress={previousMonth}/>
           <NavButton type='next' label='Next month' onPress={nextMonth}/>
-          {chartData.length==0&&<Text style={{fontWeight:'bold',color:cores.primary}}>No data found.</Text>}
+          {chartData.length==0&&!isLoading&&<Text style={{fontWeight:'bold',color:cores.primary}}>No data found.</Text>}
         </View>
     </View>
   )

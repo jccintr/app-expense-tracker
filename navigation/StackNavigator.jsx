@@ -17,7 +17,6 @@ const StackNavigator = () => {
          <Stack.Screen name='cadastro' component={Cadastro} options={{headerShown:false}}/>
          <Stack.Screen name='categories' component={Categories} options={{headerShown:false}}/>
          <Stack.Screen name='accounts' component={Accounts} options={{headerShown:false}}/>
-         {/*<Stack.Screen name='home' component={Home} options={{headerShown:false}}/>*/}
          <Stack.Screen name='home' component={BottomTabNavigation} options={{headerShown:false}}/>
       </Stack.Navigator>
     )

@@ -1,3 +1,6 @@
+
+export const months = ['January','February','March','April','May','June','July','August','September','November','December'];
+
 export function formataData(dataISO) {
 
     const data = new Date(dataISO);
@@ -65,6 +68,18 @@ export function formataHoraUTC(dataISO) {
 export function formataDataAPI(dataISO) {
 
     const data = new Date(dataISO);
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0'); // Mês começa do 0
+    const ano = data.getFullYear();
+    const horas = String(data.getHours()).padStart(2, '0');
+    const minutos = String(data.getMinutes()).padStart(2, '0');
+    
+    return `${ano}-${mes}-${dia}`;
+}
+
+export function formataDataAPIUTC(dataISO) {
+
+    const data = new Date(dataISO);
     const dia = String(data.getUTCDate()).padStart(2, '0');
     const mes = String(data.getUTCMonth() + 1).padStart(2, '0'); // Mês começa do 0
     const ano = data.getUTCFullYear();
@@ -85,4 +100,26 @@ export function getWeekNumber(date) {
     const pastDays = (date - firstDayOfYear) / (24 * 60 * 60 * 1000);
     return Math.ceil((pastDays + firstDayOfYear.getDay() + 1) / 7);
   }
+
+ export function gerarCorHexAleatoria() {
+    const caracteres = '0123456789ABCDEF';
+    let cor = '#';
+    
+    for (let i = 0; i < 6; i++) {
+      cor += caracteres[Math.floor(Math.random() * 16)];
+    }
+  
+    return cor;
+  }
+
+  export function calcularPercentual(total, valor) {
+  
+      if (total === 0) {
+        return "0%"; // Evita divisão por zero
+      }
+      
+      const percentual = Math.round((valor / total) * 100);
+      return `${percentual}%`;
+  
+    }
 

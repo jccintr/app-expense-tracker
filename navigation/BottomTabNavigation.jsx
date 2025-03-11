@@ -22,11 +22,7 @@ const tabBarStyle = {
     borderTopWidth: 1,
     borderRadius:10,
     height: 64,
-    //position: 'absolute',
-   // bottom:10,
-   // left:20,
-   // right:20,
-   // paddingBottom:5,
+   
 }
 
 const tabBarLabelStyle = {

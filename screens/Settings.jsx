@@ -28,10 +28,10 @@ const Settings = ({navigation}) => {
             onPress={()=>navigation.navigate('categories')} 
             text={'CATEGORIES'} 
             textSize={16} 
-            textColor={cores.blueGray} 
+            textColor={cores.primary} 
             width={'100%'} 
             backgroundColor={cores.whiteSmoke} 
-            borderColor={cores.blueGray}
+            borderColor={cores.primary}
             borderWidth={2} 
             borderRadius={10} 
             isLoading={false}
@@ -41,10 +41,10 @@ const Settings = ({navigation}) => {
             onPress={()=>navigation.navigate('accounts')} 
             text={'ACCOUNTS'} 
             textSize={16} 
-            textColor={cores.blueGray} 
+            textColor={cores.primary} 
             width={'100%'} 
             backgroundColor={cores.whiteSmoke} 
-            borderColor={cores.blueGray}
+            borderColor={cores.primary}
             borderWidth={2} 
             borderRadius={10} 
             isLoading={false}
@@ -64,7 +64,7 @@ const Settings = ({navigation}) => {
                 textSize={16} 
                 textColor={cores.ghostWhite} 
                 width={'100%'} 
-                backgroundColor={cores.blueGray} 
+                backgroundColor={cores.primary} 
               
                 borderWidth={0} 
                 borderRadius={10} 
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
  },
  userName:{
   fontSize: 16,
-  color: cores.blueGray,
+  color: cores.primary,
   fontWeight:'bold'
 },
 footer:{

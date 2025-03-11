@@ -4,6 +4,7 @@ import { cores } from '../styles/core'
 import HeightSpacer from '../components/reusable/HeightSpacer'
 import WeeklyChart from '../components/charts/WeeklyChart'
 import DonutChart from '../components/charts/DonutChart'
+import PizzaChart from '../components/charts/PizzaChart'
 
 
 
@@ -18,6 +19,8 @@ const Charts = () => {
             <WeeklyChart/>
             <HeightSpacer h={10}/>
             <DonutChart/>
+            <HeightSpacer h={10}/>
+            <PizzaChart/>
         </ScrollView> 
     </SafeAreaView>
   )
